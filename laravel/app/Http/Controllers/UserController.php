@@ -1,0 +1,107 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Auth\Events\Registered;
+use App\Models\User;
+use App\Models\Permission;
+use App\Models\Role;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Session;
+
+class UserController extends Controller
+{
+    //
+    public function users()
+    {
+        $hasUpdateUsers = Permission::where('role', Auth::user()->role)
+            ->where('view', 'users')
+            ->where('update', true)
+            ->exists();
+        $hasDeleteUsers = Permission::where('role', Auth::user()->role)
+            ->where('view', 'users')
+            ->where('delete', true)
+            ->exists();
+        return view('auth.users', ['hasUpdateUsers' => $hasUpdateUsers], ['hasDeleteUsers' => $hasDeleteUsers]);
+        // return view('auth.users');
+    }
+
+    public function getUsersList(Request $request)
+    {
+        $data = User::getDataListUsers();
+        // dd($data);
+        return response()->json(
+            array(
+                'status' => 'ok',
+                'data' => $data
+            ),
+            200
+        );
+    }
+
+    public function addUser()
+    {
+        $datarole = Role::select('role_name')->get();
+        return view('auth.adduser', compact('datarole'));
+        // return view('auth.adduser');
+    }
+
+    public function actionRegister(Request $request)
+    {
+        $user = new User();
+        $user->validator($request->all())->validate();
+
+        event(new Registered($user = $user->create($request->all())));
+
+        //TAMBAHAN BARU dari https://www.ayongoding.com/membuat-register-user-laravel/
+
+        Session::flash('message', 'Penambahan user baru berhasil. User sudah aktif, silahkan login menggunakan email dan password.');
+        return redirect(route('auth.users'));
+    }
+
+    public function changeUserPassword(Request $request)
+    {
+        //
+        $id = $request->get('id');
+        $data = User::find($id);
+
+        return response()->json(
+            array(
+                'status' => 'ok',
+                'msg' => view('auth.changeuserpwdform', compact('data'))->render() //untuk modal data dan view diambil dari sini
+            ),
+            200
+        );
+    }
+
+    public function actionChangeUserPassword(Request $request)
+    {
+        try {
+            $id = $request->get('id');
+
+            // $user = new User();
+            // $user->updateValidator($request->all())->validate();
+
+            $user = User::find($id);
+            $user->password = Hash::make($request->get('password'));
+            $user->save();
+            return response()->json(
+                array(
+                    'status' => 'ok',
+                    'msg' => "<div class='fas fa-bell alert alert-success' style='margin-bottom:10px;'> User '" . $user->name . "' data updated</div>"
+                ),
+                200
+            );
+        } catch (\PDOException $e) {
+            return response()->json(
+                array(
+                    'status' => 'error',
+                    'msg' => $user->name . " gagal diupdate"
+                ),
+                200
+            );
+        }
+    }
+}
