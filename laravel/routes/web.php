@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/authentication/users/get-users-list', [UserController::class, 'getUsersList'])->name('auth.getuserslist');
         Route::get('/authentication/users/add-user', [UserController::class, 'addUser'])->name('auth.adduser')->middleware('EnsureUserHasPermission:authentication,users,create');
         Route::post('/authentication/users/add-user/action', [UserController::class, 'actionRegister'])->name('auth.actionregister');
-        Route::post('/authentication/users/change-password', [UserController::class, 'changeUserPassword'])->name('auth.changeuserpassword');
+        Route::post('/authentication/users/change-password', [UserController::class, 'changeUserPassword'])->name('auth.changeuserpassword')->middleware('EnsureUserHasPermission:authentication,users,update');
         Route::post('/authentication/users/change-password/action', [UserController::class, 'actionChangeUserPassword'])->name('auth.actionchangeuserpwd');
 
         //ROLES
