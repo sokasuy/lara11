@@ -213,28 +213,28 @@
                                 </li>
                             @endif
                         </ul>
-                        {{-- <ul class="nav nav-treeview">
-            @if (Permission::where('role', Auth::user()->role)->where('view', 'roles')->where('read', true)->exists())
-                <li class="nav-item">
-                    <a href="{{ route('roles.users') }}"
-                        class="nav-link {{ Request::is('roles/users*') ? 'active' : '' }}">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Roles</p>
-                    </a>
-                </li>
-            @endif
-        </ul> --}}
-                        {{-- <ul class="nav nav-treeview">
-            @if (Permission::where('role', Auth::user()->role)->where('view', 'permission')->where('read', true)->exists())
-                <li class="nav-item">
-                    <a href="{{ route('permission.users') }}"
-                        class="nav-link {{ Request::is('permission/users*') ? 'active' : '' }}">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Permission</p>
-                    </a>
-                </li>
-            @endif
-        </ul> --}}
+                        <ul class="nav nav-treeview">
+                            @if (Permission::where('role', Auth::user()->role)->where('view', 'roles')->where('read', true)->exists())
+                                <li class="nav-item">
+                                    <a href="{{ route('auth.roles') }}"
+                                        class="nav-link {{ Request::is('authentication/roles*') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Roles</p>
+                                    </a>
+                                </li>
+                            @endif
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            @if (Permission::where('role', Auth::user()->role)->where('view', 'permission')->where('read', true)->exists())
+                                <li class="nav-item">
+                                    <a href="{{ route('auth.permission') }}"
+                                        class="nav-link {{ Request::is('authentication/permissions*') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Permission</p>
+                                    </a>
+                                </li>
+                            @endif
+                        </ul>
                         {{-- <ul class="nav nav-treeview">
             @if (Permission::where('role', Auth::user()->role)->where('view', 'customers')->where('read', true)->exists())
                 <li class="nav-item">

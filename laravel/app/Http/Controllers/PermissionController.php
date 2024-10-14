@@ -16,13 +16,13 @@ class PermissionController extends Controller
         // dd($datarole);
         $hasUpdatePermission = Permission::where('role', Auth::user()->role)
             ->where('view', 'permission')
-            ->where('update', 1)
+            ->where('update', true)
             ->exists();
         return view('auth.permission', ['userRole' => Auth::user()->role], ['hasUpdatePermission' => $hasUpdatePermission]);
     }
 
 
-    public function getpermissionList(Request $request)
+    public function getPermissionList(Request $request)
     {
 
         $datapermission = Permission::get();
@@ -35,7 +35,15 @@ class PermissionController extends Controller
         );
     }
 
-    public function changepermission(Request $request)
+    public function addPermissions(Request $request)
+    {
+        // $datamenu = SidebarMenu::get();
+        // dd($datamenu);
+        return view('auth.addpermission');
+        // return view('auth.addroles');
+    }
+
+    public function changePermission(Request $request)
     {
         //
         $id = $request->get('id');

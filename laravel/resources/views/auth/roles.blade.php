@@ -1,9 +1,9 @@
 @php
-use App\Models\Permission;
+    use App\Models\Permission;
 @endphp
 @extends('layouts.auth')
 @section('title')
-    <title>APOTEK MEDBOX | Data Roles</title>
+    <title>LARAVEL | Data Roles</title>
 @endsection
 
 @section('headertitle')
@@ -49,14 +49,14 @@ use App\Models\Permission;
                             {{ session('message-failed') }}
                         </div>
                     @endif
-                    @if(Permission::where('role', Auth::user()->role)->where('view', 'roles')->where('create', 1)->exists())
-                    <div class="row mb-0">
-                        <div class="col-md-3" style="margin-bottom: 23px;">
-                            {{-- <button type="submit" class="btn btn-primary" id="btn_adduser">Add User</button> --}}
-                            <a class="btn btn-primary btn-sm" href="{{ route('auth.addroles') }}" id="btn_adduser">
-                                <i class="fas fa-plus">&nbsp Add Roles</i></a>
+                    @if (Permission::where('role', Auth::user()->role)->where('view', 'roles')->where('create', true)->exists())
+                        <div class="row mb-0">
+                            <div class="col-md-3" style="margin-bottom: 23px;">
+                                {{-- <button type="submit" class="btn btn-primary" id="btn_adduser">Add User</button> --}}
+                                <a class="btn btn-primary btn-sm" href="{{ route('auth.addroles') }}" id="btn_adduser">
+                                    <i class="fas fa-plus">&nbsp Add Roles</i></a>
+                            </div>
                         </div>
-                    </div>
                     @endif
                     <table id="tbl_role" class="table table-bordered table-striped">
                         <thead>
@@ -79,7 +79,15 @@ use App\Models\Permission;
                                 </div>
                             </div>
                         </div>
-
+                        {{-- <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>ROLE</th>
+                                <th>CREATED AT</th>
+                                <th>UPDATED AT</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </tfoot> --}}
                     </table>
                 </div>
                 <!-- /.card-body -->
@@ -93,8 +101,8 @@ use App\Models\Permission;
 
 @section('jsbawah')
     <script defer>
-    var hasUpdateRoles = @json($hasUpdateRoles);
-    var hasDeleteRoles = @json($hasDeleteRoles);
+        var hasUpdateRoles = @json($hasUpdateRoles);
+        var hasDeleteRoles = @json($hasDeleteRoles);
 
         document.addEventListener('DOMContentLoaded', (event) => {
             var tblUser = $("#tbl_role").DataTable({
@@ -107,7 +115,7 @@ use App\Models\Permission;
                 "deferRender": true,
                 "processing": true,
                 "ajax": {
-                "url": "{{ route('role.getroles') }}",
+                    "url": "{{ route('auth.getroles') }}",
                     "type": "POST",
                     "data": {
                         _token: "{{ csrf_token() }}"
@@ -117,7 +125,7 @@ use App\Models\Permission;
                     }
                 },
                 "columns": [{
-                    "data": "rid"
+                    "data": "id"
                 }, {
                     "data": "role_name"
                 }, {
@@ -135,12 +143,14 @@ use App\Models\Permission;
                         var button_delete = "";
 
                         // if (hasUpdateRoles) {
-                        //     button_update = '<a class="btn_changeroles btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_container"><i class="fas fa-user-edit">&nbsp Change Password</i></a>';
+                        //     button_update =
+                        //         '<a class="btn_changeroles btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_container"><i class="fas fa-user-edit">&nbsp Change Password</i></a>';
                         // } else {
                         //     button_update = '';
                         // }
                         if (hasDeleteRoles) {
-                            button_delete = '<a class="btn_delete btn btn-danger btn-sm" data-toggle="modal" href="#containermodal"><i class="fas fa-trash-alt">&nbsp Delete</i></a>';
+                            button_delete =
+                                '<a class="btn_delete btn btn-danger btn-sm" data-toggle="modal" href="#containermodal"><i class="fas fa-trash-alt">&nbsp Delete</i></a>';
                         } else {
                             button_delete = '';
                         }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\Permission;
+use App\Models\SidebarMenu;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Session;
@@ -47,12 +48,12 @@ class RoleController extends Controller
         );
     }
 
-    public function addroles(Request $request)
+    public function addRoles(Request $request)
     {
-        // $datamenu = MenuSidebar::get();
+        $datamenu = SidebarMenu::get();
         // dd($datamenu);
-        // return view('auth.addroles', compact('datamenu'));
-        return view('auth.addroles');
+        return view('auth.addroles', compact('datamenu'));
+        // return view('auth.addroles');
     }
     public function actionRegister(Request $request)
     {
@@ -80,20 +81,21 @@ class RoleController extends Controller
             $role = Role::create([
                 'role_name' => $request->input('role_name'),
             ]);
-            Session::flash('message-succes', 'Penambahan Role baru berhasil.');
+            Session::flash('message-success', 'Penambahan Role baru berhasil.');
         } else {
-            Session::flash('message-failed', 'Penambahan Role gagal.');
+            Session::flash('message-failed', 'Penambahan Role gagal. Sudah ada role dengan nama yang sama');
         }
-        $hasUpdateRoles = Permission::where('role', Auth::user()->role)
-            ->where('view', 'roles')
-            ->where('update', 1)
-            ->exists();
-        $hasDeleteRoles = Permission::where('role', Auth::user()->role)
-            ->where('view', 'roles')
-            ->where('delete', 1)
-            ->exists();
-        $datarole = Role::get();
-        return view('auth.roles', ['hasUpdateRoles' => $hasUpdateRoles], ['hasDeleteRoles' => $hasDeleteRoles]);
+        // $hasUpdateRoles = Permission::where('role', Auth::user()->role)
+        //     ->where('view', 'roles')
+        //     ->where('update', 1)
+        //     ->exists();
+        // $hasDeleteRoles = Permission::where('role', Auth::user()->role)
+        //     ->where('view', 'roles')
+        //     ->where('delete', 1)
+        //     ->exists();
+        // $datarole = Role::get();
+        // return view('auth.roles', ['hasUpdateRoles' => $hasUpdateRoles], ['hasDeleteRoles' => $hasDeleteRoles]);
+        return redirect(route('auth.roles'));
     }
 
     /**

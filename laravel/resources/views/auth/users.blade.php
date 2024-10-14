@@ -87,7 +87,7 @@
                             </div>
                         </div>
 
-                        <tfoot>
+                        {{-- <tfoot>
                             <tr>
                                 <th>NAME</th>
                                 <th>EMAIL</th>
@@ -96,7 +96,7 @@
                                 <th>UPDATED AT</th>
                                 <th>ACTION</th>
                             </tr>
-                        </tfoot>
+                        </tfoot> --}}
                     </table>
                 </div>
                 <!-- /.card-body -->
