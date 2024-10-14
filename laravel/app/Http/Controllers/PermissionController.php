@@ -12,13 +12,17 @@ class PermissionController extends Controller
     public function index()
     {
         //
-        $datarole = Permission::get();
+        // $datarole = Permission::get();
         // dd($datarole);
         $hasUpdatePermission = Permission::where('role', Auth::user()->role)
             ->where('view', 'permission')
             ->where('update', true)
             ->exists();
-        return view('auth.permission', ['userRole' => Auth::user()->role], ['hasUpdatePermission' => $hasUpdatePermission]);
+        $hasDeletePermission = Permission::where('role', Auth::user()->role)
+            ->where('view', 'permission')
+            ->where('delete', true)
+            ->exists();
+        return view('auth.permission', ['hasUpdatePermission' => $hasUpdatePermission], ['hasDeletePermission' => $hasDeletePermission]);
     }
 
 

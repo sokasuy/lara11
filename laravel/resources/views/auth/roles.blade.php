@@ -199,7 +199,7 @@
         $('#tbl_role').on('click', '.btn_delete', function() {
             let row = $(this).closest('tr');
 
-            let data = $("#tbl_role").DataTable().row(row).data().rid;
+            let data = $("#tbl_role").DataTable().row(row).data().id;
             alert(data);
         });
 

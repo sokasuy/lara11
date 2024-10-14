@@ -185,6 +185,7 @@
 
         $('#tbl_user').on('click', '.btn_changepassword', function() {
             let row = $(this).closest('tr');
+            // let row = $(this).before('tr');
 
             let data = $("#tbl_user").DataTable().row(row).data().id;
             changePassword(data);

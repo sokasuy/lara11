@@ -121,8 +121,8 @@
 
 @section('jsbawah')
     <script defer>
-        // var userRole = @json($userRole);
         var hasUpdatePermission = @json($hasUpdatePermission);
+        var hasDeletePermission = @json($hasDeletePermission);
         document.addEventListener('DOMContentLoaded', (event) => {
             var tblUser = $("#tbl_permission").DataTable({
                 "dom": 'Bfrtip',
@@ -201,11 +201,22 @@
                     //     return '<a class="btn_changepermission btn btn-primary btn-sm" data-toggle="modal" href="#editusermodal"><i class="fas fa-user-edit">&nbsp Edit</i></a> <a class="btn btn-danger btn-sm" data-toggle="modal" href="#deleteusermodal"><i class="fas fa-trash-alt">&nbsp Delete</i></a>';
                     // }
                     render: function(data, type, row) {
+                        var button_update = "";
+                        var button_delete = "";
                         if (hasUpdatePermission) {
-                            return '<a class="btn_changepermission btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_container"><i class="fas fa-user-edit">&nbsp Edit</i></a>';
+                            button_update =
+                                '<a class="btn_changepermission btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_container"><i class="fas fa-user-edit">&nbsp Edit</i></a>';
                         } else {
-                            return '';
+                            button_update = '';
                         }
+                        if (hasDeletePermission) {
+                            button_delete =
+                                '<a class="btn_delete btn btn-danger btn-sm" data-toggle="modal" href="#containermodal"><i class="fas fa-trash-alt">&nbsp Delete</i></a>';
+                        } else {
+                            button_delete = '';
+                        }
+
+                        return button_update + button_delete;
                     }
                 }],
                 select: true
@@ -218,16 +229,23 @@
         });
 
         $('#tbl_permission').on('click', '.btn_changepermission', function() {
-            let row = $(this).closest('tr');
+            // let row = $(this).closest('tr');
+            let row = $(this).before();
 
             let data = $("#tbl_permission").DataTable().row(row).data().id;
+            // alert(data)
+            // if (!data) {
+            //     row = $(this).before('tr');
+            //     data = $("#tbl_permission").DataTable().row(row).data().id;
+            //     // alert("tes")
+            // }
             changePermission(data);
         });
 
         function changePermission(id) {
             $.ajax({
                 type: 'POST',
-                url: "{{ route('permission.changepermission') }}",
+                url: "{{ route('auth.changepermission') }}",
                 data: {
                     _token: "{{ csrf_token() }}",
                     'id': id
@@ -242,23 +260,24 @@
         };
 
         $('#tbl_permission').on('click', '.btn_delete', function() {
-            let row = $(this).closest('tr');
+            // let row = $(this).closest('tr');
+            let row = $(this).before();
 
-            let data = $("#tbl_permission").DataTable().row(row).data().email;
+            let data = $("#tbl_permission").DataTable().row(row).data().id;
             alert(data);
         });
 
         function actionUpdatePermission(id) {
             let role = $("#role").val();
             let view = $("#view").val();
-            let create = $("#create").prop('checked') ? 1 : 0;
-            let read = $("#read").prop('checked') ? 1 : 0;
-            let update = $("#update").prop('checked') ? 1 : 0;
-            let checkboxdelete = $("#delete").prop('checked') ? 1 : 0;
+            let create = $("#create").prop('checked') ? true : false;
+            let read = $("#read").prop('checked') ? true : false;
+            let update = $("#update").prop('checked') ? true : false;
+            let checkboxdelete = $("#delete").prop('checked') ? true : false;
 
             $.ajax({
                 type: 'POST',
-                url: "{{ route('permission.actionChangePermission') }}",
+                url: "{{ route('auth.actionChangePermission') }}",
                 data: {
                     _token: "{{ csrf_token() }}",
                     id: id,

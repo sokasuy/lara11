@@ -371,7 +371,9 @@
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- ChartJS -->
     {{-- <script src="{{ asset('assets/plugins/chart.js/Chart.jsv2.9.4/Chart.min.js') }}"></script> --}}
-    <script src="{{ asset('assets/plugins/chart.js/chart.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/plugins/chart.js/chart.min.js') }}"></script> --}}
+    {{-- chart js v4.4.2 --}}
+    <script src="{{ asset('assets/plugins/chart.js/chart.umd.js') }}"></script>
     <!-- Sparkline -->
     <script src="{{ asset('assets/plugins/sparklines/sparkline.js') }}"></script>
     <!-- JQVMap -->
