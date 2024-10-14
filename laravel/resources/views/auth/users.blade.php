@@ -184,8 +184,14 @@
         });
 
         $('#tbl_user').on('click', '.btn_changepassword', function() {
-            let row = $(this).closest('tr');
-            // let row = $(this).before('tr');
+            let className = $(this).closest('tr').attr("class");
+            let row;
+            // harus dilakukan pengecekkan, apakah tombolnya ini di child atau tetap di parent nya
+            if (className === 'child') {
+                row = $(this).before();
+            } else {
+                row = $(this).closest('tr');
+            }
 
             let data = $("#tbl_user").DataTable().row(row).data().id;
             changePassword(data);
@@ -209,7 +215,14 @@
         };
 
         $('#tbl_user').on('click', '.btn_delete', function() {
-            let row = $(this).closest('tr');
+            let className = $(this).closest('tr').attr("class");
+            let row;
+            // harus dilakukan pengecekkan, apakah tombolnya ini di child atau tetap di parent nya
+            if (className === 'child') {
+                row = $(this).before();
+            } else {
+                row = $(this).closest('tr');
+            }
 
             let data = $("#tbl_user").DataTable().row(row).data().email;
             alert(data);

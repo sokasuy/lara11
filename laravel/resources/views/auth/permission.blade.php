@@ -229,16 +229,15 @@
         });
 
         $('#tbl_permission').on('click', '.btn_changepermission', function() {
-            // let row = $(this).closest('tr');
-            let row = $(this).before();
-
+            let className = $(this).closest('tr').attr("class");
+            let row;
+            // harus dilakukan pengecekkan, apakah tombolnya ini di child atau tetap di parent nya
+            if (className === 'child') {
+                row = $(this).before();
+            } else {
+                row = $(this).closest('tr');
+            }
             let data = $("#tbl_permission").DataTable().row(row).data().id;
-            // alert(data)
-            // if (!data) {
-            //     row = $(this).before('tr');
-            //     data = $("#tbl_permission").DataTable().row(row).data().id;
-            //     // alert("tes")
-            // }
             changePermission(data);
         });
 
@@ -260,8 +259,14 @@
         };
 
         $('#tbl_permission').on('click', '.btn_delete', function() {
-            // let row = $(this).closest('tr');
-            let row = $(this).before();
+            let className = $(this).closest('tr').attr("class");
+            let row;
+            // harus dilakukan pengecekkan, apakah tombolnya ini di child atau tetap di parent nya
+            if (className === 'child') {
+                row = $(this).before();
+            } else {
+                row = $(this).closest('tr');
+            }
 
             let data = $("#tbl_permission").DataTable().row(row).data().id;
             alert(data);
