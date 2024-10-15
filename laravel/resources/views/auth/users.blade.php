@@ -3,7 +3,7 @@
 @endphp --}}
 @extends('layouts.auth')
 @section('title')
-    <title>LARAVEL | Data Users</title>
+    <title>{{ Config::get('app.name') }} | Data Users</title>
 @endsection
 
 @section('headertitle')

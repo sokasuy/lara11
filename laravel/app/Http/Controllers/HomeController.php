@@ -17,7 +17,7 @@ class HomeController extends Controller
         //     ->where('view', 'home')
         //     ->where('read', true)
         //     ->exists();
-        $hasReadPermission = Permission::checkPermission(Auth::user()->role,'dashboard','dashboard','home','read');
+        $hasReadPermission = Permission::checkPermission(Auth::user()->role, 'dashboard', 'home', 'home', 'read');
         return view('home', compact('hasReadPermission'));
         // return view('home', ['hasReadPermission' => $hasReadPermission]);
     }

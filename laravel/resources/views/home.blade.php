@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    <title>LARAVEL 11 | Dashboard</title>
+    <title>{{ Config::get('app.name') }} | Dashboard</title>
 @endsection
 
 @section('breadcrumb')
