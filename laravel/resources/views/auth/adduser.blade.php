@@ -12,41 +12,6 @@
     </span>
 @endsection
 
-{{-- @section('navlist')
-    <ul class="nav nav-treeview">
-        <li class="nav-item">
-            <a href="{{ route('auth.users') }}" class="nav-link active">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Users</p>
-            </a>
-        </li>
-    </ul>
-    <ul class="nav nav-treeview">
-        <li class="nav-item">
-            <a href="" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Roles</p>
-            </a>
-        </li>
-    </ul>
-    <ul class="nav nav-treeview">
-        <li class="nav-item">
-            <a href="" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Permission</p>
-            </a>
-        </li>
-    </ul>
-    <ul class="nav nav-treeview">
-        <li class="nav-item">
-            <a href="{{ route('auth.customers') }}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Customers</p>
-            </a>
-        </li>
-    </ul>
-@endsection --}}
-
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">Home</a></li>
     <li class="breadcrumb-item">Authentication</li>
@@ -174,12 +139,18 @@
                             <button type="submit" class="btn btn-primary" data-value="save_and_back"><i
                                     class="fas fa-save"></i>&nbsp;Save and
                                 back</button>
-                            <button type="submit" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"></button>
+                            <button type="submit" class="btn btn-outline-primary dropdown-toggle"
+                                data-toggle="dropdown"></button>
                             <ul class="dropdown-menu">
-                                <li class="dropdown-item" data-value="save_and_edit"><a href="#">Save and edit this
-                                        item</a></li>
-                                <li class="dropdown-item" data-value="save_and_new"><a href="#">Save and new
-                                        item</a></li>
+                                <button type="submit" class="btn btn-block btn-outline-primary" data-value="save_and_edit">
+                                    <li class="dropdown-item">Save and edit
+                                        this
+                                        item</li>
+                                </button>
+                                <button type="submit" class="btn btn-block btn-outline-primary" data-value="save_and_new">
+                                    <li class="dropdown-item">Save and new
+                                        item</li>
+                                </button>
                             </ul>
                         </div>
                         {{-- </div> --}}

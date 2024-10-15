@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Permission;
+use App\Models\Role;
+use App\Models\SidebarMenu;
+use Session;
 
 class PermissionController extends Controller
 {
@@ -28,8 +31,10 @@ class PermissionController extends Controller
 
     public function getPermissionList(Request $request)
     {
-
-        $datapermission = Permission::get();
+        // dd($request->search['value']);
+        $datapermission = Permission::orderBy('created_at','desc')->orderBy('updated_at','desc')->get();
+        // $searchValue=$request->search['value'];
+        // $datapermission = Permission::orderBy('created_at','desc')->orderBy('updated_at','desc')->get();
         return response()->json(
             array(
                 'status' => 'ok',
@@ -41,10 +46,38 @@ class PermissionController extends Controller
 
     public function addPermissions(Request $request)
     {
-        // $datamenu = SidebarMenu::get();
-        // dd($datamenu);
-        return view('auth.addpermission');
-        // return view('auth.addroles');
+        $datarole = Role::select('id','role_name')->get();
+        $datamenu = SidebarMenu::select('id','menu_group','menu_name','view')->get();
+        return view('auth.addpermission', compact('datarole','datamenu'));
+    }
+
+    public function actionRegister(Request $request)
+    {
+        // Buat data permission
+        // $role_name = Role::select('role_name')->where('id',$request->get('role'))->first();
+        $role_name = Role::where('id',$request->get('role'))->value('role_name');
+        // dd($role_name->role_name);
+        // dd($role_name);
+
+        foreach ($request->input('data_menu') as $data) {
+                // Jika Anda membutuhkan lebih banyak data dari setiap $data, Anda bisa menyesuaikan sesuai kebutuhan
+                $datamenu = SidebarMenu::select('id','menu_group','menu_name','view')->where('id',$data)->first();
+                // dd($datamenu->menu_group);
+                $newData = new Permission();
+                $newData->role_id = $request->get('role');
+                $newData->role = $role_name;
+                $newData->sidebar_id = $datamenu->id;
+                $newData->menu_group = $datamenu->menu_group;
+                $newData->menu_name = $datamenu->menu_name;
+                $newData->view = $datamenu->view;
+                $newData->create = 'true';
+                $newData->update = 'true';
+                $newData->read = 'true';
+                $newData->delete = 'true';
+                $newData->save();
+        }
+        // Session::flash('message-success', 'Penambahan Role baru berhasil.');
+        return redirect(route('auth.permission'))->with('message-success', 'Penambahan Permission baru berhasil!');
     }
 
     public function changePermission(Request $request)

@@ -127,12 +127,13 @@
             var tblUser = $("#tbl_permission").DataTable({
                 "dom": 'Bfrtip',
                 "paging": true,
-                "pageLength": 100,
+                "pageLength": 10,
                 "responsive": true,
                 "lengthChange": true,
                 "autoWidth": false,
                 "deferRender": true,
                 "processing": true,
+                // "serverSide": true,
                 "ajax": {
                     "url": '{{ route('auth.getpermission') }}',
                     "type": "POST",
@@ -144,7 +145,8 @@
                     }
                 },
                 "columns": [{
-                    "data": "id"
+                    "data": "id",
+                    "visible": false
                 }, {
                     "data": "role"
                 }, {
@@ -219,13 +221,14 @@
                         return button_update + button_delete;
                     }
                 }],
-                select: true
+                select: true,
                 // fnInitComplete: function(oSettings, json) {
                 //     //CHANGE PASSWORD BUTTON
                 //     const btnChangePassword = document.querySelector('.btn_changepermission');
                 //     btnChangePassword.addEventListener('click', changePassword);
                 // },
-            })
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#tbl_user_wrapper .col-md-6:eq(0)');
         });
 
         $('#tbl_permission').on('click', '.btn_changepermission', function() {

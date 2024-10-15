@@ -296,6 +296,7 @@
     <!-- DataTables  & Plugins -->
     <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     {{-- <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script> --}}
+    {{-- <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-2.1.8/datatables.min.js"></script> --}}
     <script src="{{ asset('assets/plugins/datatables/datetime.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>

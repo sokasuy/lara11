@@ -1,23 +1,23 @@
 @extends('layouts.auth')
 @section('title')
-    <title>LARAVEL | Add Roles</title>
+    <title>LARAVEL | Add Permission</title>
 @endsection
 
 
 @section('headertitle')
     <span>
-        <h1>Roles
+        <h1>Permission
         </h1>
-        Add Roles. <a href="{{ route('auth.roles') }}"><i class="fas fa-angle-double-left"></i>&nbsp;Back to all
-            <span>Roles</span></a>
+        Add Permission. <a href="{{ route('auth.permission') }}"><i class="fas fa-angle-double-left"></i>&nbsp;Back to all
+            <span>Permission</span></a>
     </span>
 @endsection
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">Home</a></li>
     <li class="breadcrumb-item">Authentication</li>
-    <li class="breadcrumb-item"><a href="{{ route('auth.roles') }}">Roles</a></li>
-    <li class="breadcrumb-item active">Add Roles</li>
+    <li class="breadcrumb-item"><a href="{{ route('auth.permission') }}">Permission</a></li>
+    <li class="breadcrumb-item active">Add Permission</li>
 @endsection
 
 @section('content')
@@ -27,27 +27,25 @@
             <!-- general form elements -->
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Add New Role</h3>
+                    <h3 class="card-title">Register New User</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form method="POST" action="{{ route('auth.actionregisterroles') }}">
+                <form method="POST" action="{{ route('auth.actionregisterpermission') }}">
                     @csrf
                     <div class="card-body">
-                        {{-- NAMA ROLES --}}
+                        {{-- ROLE --}}
                         <div class="form-group">
-                            <label for="name">Masukan Nama Role</label>
+                            <label for="role">Role</label>
                             <div class="input-group mb-3">
-                                <input id="name" type="text"
-                                    class="form-control @error('name') is-invalid @enderror" name="role_name"
-                                    value="{{ old('name') }}" placeholder="Nama Role" required autocomplete="name"
-                                    autofocus>
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-user"></span>
-                                    </div>
-                                </div>
-                                @error('name')
+                                <select class="form-control select2bs4placeholderrole" id="role" name="role"
+                                    style="width: 100%;" required>
+                                    @foreach ($datarole as $d)
+                                        <option selected disabled></option>
+                                        <option value="{{ $d->id }}">{{ $d->role_name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('role')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -55,19 +53,20 @@
                             </div>
                         </div>
 
-                        {{-- <div class="form-group">
+                        {{-- SIDEBAR MENU --}}
+                        <div class="form-group">
                             <label for="name">Akses Menu</label>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <select class="select2" multiple="multiple" data-placeholder="Pilih Menu"
-                                        style="width: 100%;" name="data_menu[]">
+                                        style="width: 100%;" name="data_menu[]" required>
                                         @foreach ($datamenu as $d)
-                                            <option value="{{ $d->nama_menu }}">{{ $d->nama_menu }}</option>
+                                            <option value="{{ $d->id }}">{{ $d->menu_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
 
                         {{-- HAK AKSES --}}
                         {{-- <div class="form-group">

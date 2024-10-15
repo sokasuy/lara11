@@ -123,6 +123,7 @@
                 "autoWidth": false,
                 "deferRender": true,
                 "processing": true,
+                "serverSide": true,
                 "ajax": {
                     "url": '{{ route('auth.getuserslist') }}',
                     "type": "POST",

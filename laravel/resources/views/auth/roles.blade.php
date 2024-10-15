@@ -114,6 +114,7 @@
                 "autoWidth": false,
                 "deferRender": true,
                 "processing": true,
+                "serverSide": true,
                 "ajax": {
                     "url": "{{ route('auth.getroles') }}",
                     "type": "POST",
@@ -125,7 +126,8 @@
                     }
                 },
                 "columns": [{
-                    "data": "id"
+                    "data": "id",
+                    "visible": false
                 }, {
                     "data": "role_name"
                 }, {
@@ -163,13 +165,14 @@
                     // }
                     // "defaultContent": '<input type="button" class="btn_changeroles" value="Ganti Password"/><input type="button" class="btn_delete" value="Delete"/>'
                 }],
-                select: true
+                select: true,
                 // fnInitComplete: function(oSettings, json) {
                 //     //CHANGE PASSWORD BUTTON
                 //     const btnChangePassword = document.querySelector('.btn_changeroles');
                 //     btnChangePassword.addEventListener('click', changePassword);
                 // },
-            })
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#tbl_user_wrapper .col-md-6:eq(0)');
         });
 
         // $('#tbl_role').on('click', '.btn_changeroles', function() {

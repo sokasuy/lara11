@@ -46,7 +46,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/authentication/permissions/get-permission-list', [PermissionController::class, 'getPermissionList'])->name('auth.getpermission');
         Route::post('/authentication/permissions/change-permission', [PermissionController::class, 'changePermission'])->name('auth.changepermission')->middleware('EnsureUserHasPermission:authentication,permission,update');
         Route::post('/authentication/permissions/change-permission/action', [PermissionController::class, 'actionChangePermission'])->name('auth.actionChangePermission');
-        Route::get('/authentication/roles/add-permission', [PermissionController::class, 'addPermissions'])->name('auth.addpermissions')->middleware('EnsureUserHasPermission:authentication,permission,create');
+        Route::get('/authentication/permissions/add-permission', [PermissionController::class, 'addPermissions'])->name('auth.addpermissions')->middleware('EnsureUserHasPermission:authentication,permission,create');
+        Route::post('/authentication/permissions/add-permission/action', [PermissionController::class, 'actionRegister'])->name('auth.actionregisterpermission');
     });
 });
 
