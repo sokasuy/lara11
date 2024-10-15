@@ -60,13 +60,6 @@
                             </div>
                         </div>
                     @endif
-                    <div class="row mb-0">
-                        <div class="col-md-3" style="margin-bottom: 23px;">
-                            {{-- <button type="submit" class="btn btn-primary" id="btn_adduser">Add User</button> --}}
-                            {{-- <a class="btn btn-primary btn-sm" href=" route('auth.addpermission') " id="btn_adduser">
-                                <i class="fas fa-plus">&nbsp Add permission</i></a> --}}
-                        </div>
-                    </div>
                     <table id="tbl_permission" class="table table-bordered table-striped">
                         <thead>
                             <tr style="text-align: center;">
@@ -226,13 +219,17 @@
                     name: 'id',
                     dir: 'desc'
                 },
+                lengthMenu: [10, 25, 50, {
+                    label: 'All',
+                    value: -1
+                }],
                 select: true,
                 // fnInitComplete: function(oSettings, json) {
                 //     //CHANGE PASSWORD BUTTON
                 //     const btnChangePassword = document.querySelector('.btn_changepermission');
                 //     btnChangePassword.addEventListener('click', changePassword);
                 // },
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "buttons": ['pageLength', "copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#tbl_user_wrapper .col-md-6:eq(0)');
         });
 
