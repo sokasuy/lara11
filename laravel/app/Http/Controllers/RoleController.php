@@ -37,7 +37,7 @@ class RoleController extends Controller
     public function getRolesList(Request $request)
     {
 
-        $datarole = Role::get();
+        $datarole = Role::orderBy('id','desc')->get();
         // dd($data);
         return response()->json(
             array(

@@ -221,6 +221,10 @@
                         return button_update + button_delete;
                     }
                 }],
+                order: {
+                    name: 'id',
+                    dir: 'desc'
+                },
                 select: true,
                 // fnInitComplete: function(oSettings, json) {
                 //     //CHANGE PASSWORD BUTTON

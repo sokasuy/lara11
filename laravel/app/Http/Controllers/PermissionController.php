@@ -32,7 +32,7 @@ class PermissionController extends Controller
     public function getPermissionList(Request $request)
     {
         // dd($request->search['value']);
-        $datapermission = Permission::orderBy('created_at','desc')->orderBy('updated_at','desc')->get();
+        $datapermission = Permission::orderBy('id','desc')->get();
         // $searchValue=$request->search['value'];
         // $datapermission = Permission::orderBy('created_at','desc')->orderBy('updated_at','desc')->get();
         return response()->json(

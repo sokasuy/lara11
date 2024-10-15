@@ -123,7 +123,7 @@
                 "autoWidth": false,
                 "deferRender": true,
                 "processing": true,
-                "serverSide": true,
+                // "serverSide": true,
                 "ajax": {
                     "url": '{{ route('auth.getuserslist') }}',
                     "type": "POST",
@@ -174,6 +174,10 @@
                     // }
                     // "defaultContent": '<input type="button" class="btn_changepassword" value="Ganti Password"/><input type="button" class="btn_delete" value="Delete"/>'
                 }],
+                order: {
+                    name: 'id',
+                    dir: 'desc'
+                },
                 select: true,
                 // fnInitComplete: function(oSettings, json) {
                 //     //CHANGE PASSWORD BUTTON
