@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('EnsureAuthenticationAccess')->group(function () {
         //AUTHENTICATION FORMS
-        Route::get('/authentication/users', [UserController::class, 'users'])->name('auth.users')->middleware('EnsureUserHasPermission:authentication,users,read');
+        Route::get('/authentication/users', [UserController::class, 'index'])->name('auth.users')->middleware('EnsureUserHasPermission:authentication,users,read');
         Route::post('/authentication/users/get-users-list', [UserController::class, 'getUsersList'])->name('auth.getuserslist');
         Route::get('/authentication/users/add-user', [UserController::class, 'addUser'])->name('auth.adduser')->middleware('EnsureUserHasPermission:authentication,users,create');
         Route::post('/authentication/users/add-user/action', [UserController::class, 'actionRegister'])->name('auth.actionregister');

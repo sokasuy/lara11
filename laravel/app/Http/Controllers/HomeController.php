@@ -12,11 +12,13 @@ class HomeController extends Controller
 
     public function index()
     {
-        $hasReadPermission = Permission::where('role', Auth::user()->role)
-            ->where('menu_group', 'dashboard')
-            ->where('view', 'home')
-            ->where('read', true)
-            ->exists();
-        return view('home', ['hasReadPermission' => $hasReadPermission]);
+        // $hasReadPermission = Permission::where('role', Auth::user()->role)
+        //     ->where('menu_group', 'dashboard')
+        //     ->where('view', 'home')
+        //     ->where('read', true)
+        //     ->exists();
+        $hasReadPermission = Permission::checkPermission(Auth::user()->role,'dashboard','dashboard','home','read');
+        return view('home', compact('hasReadPermission'));
+        // return view('home', ['hasReadPermission' => $hasReadPermission]);
     }
 }

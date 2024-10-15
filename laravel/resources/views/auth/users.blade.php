@@ -1,6 +1,6 @@
-@php
+{{-- @php
     use App\Models\Permission;
-@endphp
+@endphp --}}
 @extends('layouts.auth')
 @section('title')
     <title>LARAVEL | Data Users</title>
@@ -46,7 +46,8 @@
                         </div>
                     @endif
 
-                    @if (Permission::where('role', Auth::user()->role)->where('view', 'users')->where('create', true)->exists())
+                    {{-- @if (Permission::where('role', Auth::user()->role)->where('view', 'users')->where('create', true)->exists()) --}}
+                    @if ($hasCreateNewUsers)
                         <div class="row mb-0">
                             <div class="col-md-3" style="margin-bottom: 23px;">
                                 {{-- <button type="submit" class="btn btn-primary" id="btn_adduser">Add User</button> --}}

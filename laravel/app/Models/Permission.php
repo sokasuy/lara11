@@ -22,4 +22,16 @@ class Permission extends Model
         'read',
         'delete'
     ];
+
+    public static function checkPermission($role,$menu_group,$menu_name,$view,$action)
+    {
+        $data = self::on()
+                ->where('role', $role)
+                ->where('menu_group', $menu_group)
+                ->where('menu_name', $menu_name)
+                ->where('view',$view)
+                ->where($action, true)
+                ->exists();
+        return $data;
+    }
 }

@@ -19,18 +19,21 @@ class RoleController extends Controller
         //
         // $datarole = Role::get();
         // dd($datarole);
-        $hasUpdateRoles = Permission::where('role', Auth::user()->role)
-            ->where('view', 'roles')
-            ->where('update', true)
-            ->exists();
-        $hasDeleteRoles = Permission::where('role', Auth::user()->role)
-            ->where('view', 'roles')
-            ->where('delete', true)
-            ->exists();
-        $datarole = Role::get();
+        // $hasUpdateRoles = Permission::where('role', Auth::user()->role)
+        //     ->where('view', 'roles')
+        //     ->where('update', true)
+        //     ->exists();
+        // $hasDeleteRoles = Permission::where('role', Auth::user()->role)
+        //     ->where('view', 'roles')
+        //     ->where('delete', true)
+        //     ->exists();
+        // $datarole = Role::get();
         // dd($datarole);
-
-        return view('auth.roles', ['hasUpdateRoles' => $hasUpdateRoles], ['hasDeleteRoles' => $hasDeleteRoles]);
+        $hasCreateNewRoles = Permission::checkPermission(Auth::user()->role,'authentication','roles','roles','create');
+        $hasUpdateRoles = Permission::checkPermission(Auth::user()->role,'authentication','roles','roles','update');
+        $hasDeleteRoles = Permission::checkPermission(Auth::user()->role,'authentication','roles','roles','delete');
+        return view('auth.roles', compact('hasCreateNewRoles','hasUpdateRoles','hasDeleteRoles'));
+        // return view('auth.roles', ['hasUpdateRoles' => $hasUpdateRoles], ['hasDeleteRoles' => $hasDeleteRoles]);
     }
 
 

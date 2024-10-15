@@ -14,17 +14,21 @@ use Session;
 class UserController extends Controller
 {
     //
-    public function users()
+    public function index()
     {
-        $hasUpdateUsers = Permission::where('role', Auth::user()->role)
-            ->where('view', 'users')
-            ->where('update', true)
-            ->exists();
-        $hasDeleteUsers = Permission::where('role', Auth::user()->role)
-            ->where('view', 'users')
-            ->where('delete', true)
-            ->exists();
-        return view('auth.users', ['hasUpdateUsers' => $hasUpdateUsers], ['hasDeleteUsers' => $hasDeleteUsers]);
+        // $hasUpdateUsers = Permission::where('role', Auth::user()->role)
+        //     ->where('view', 'users')
+        //     ->where('update', true)
+        //     ->exists();
+        // $hasDeleteUsers = Permission::where('role', Auth::user()->role)
+        //     ->where('view', 'users')
+        //     ->where('delete', true)
+        //     ->exists();
+        $hasCreateNewUsers = Permission::checkPermission(Auth::user()->role,'authentication','users','users','create');
+        $hasUpdateUsers = Permission::checkPermission(Auth::user()->role,'authentication','users','users','update');
+        $hasDeleteUsers = Permission::checkPermission(Auth::user()->role,'authentication','users','users','delete');
+        return view('auth.users', compact('hasCreateNewUsers','hasUpdateUsers','hasDeleteUsers'));
+        // return view('auth.users', ['hasUpdateUsers' => $hasUpdateUsers], ['hasDeleteUsers' => $hasDeleteUsers]);
         // return view('auth.users');
     }
 
