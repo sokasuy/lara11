@@ -1,6 +1,6 @@
-@php
+{{-- @php
     use App\Models\Permission;
-@endphp
+@endphp --}}
 @extends('layouts.auth')
 @section('title')
     <title>LARAVEL | Data Roles</title>
