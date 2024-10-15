@@ -13,6 +13,7 @@ class HomeController extends Controller
     public function index()
     {
         $hasReadPermission = Permission::where('role', Auth::user()->role)
+            ->where('menu_group', 'dashboard')
             ->where('view', 'home')
             ->where('read', true)
             ->exists();

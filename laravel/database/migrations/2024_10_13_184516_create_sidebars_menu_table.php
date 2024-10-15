@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('menu_group', length: 100);
             $table->string('menu_name', length: 100);
+            $table->string('view', length: 100);
             $table->timestamps();
         });
     }
